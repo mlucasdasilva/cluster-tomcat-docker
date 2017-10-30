@@ -127,6 +127,23 @@ services:
        tomcatnetwork:
          ipv4_address: 172.28.5.7
 
+    haproxy1:
+      image: haproxy:1.7
+      volumes:
+       - ./haproxy1/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+       - ./haproxy1/conf.d:/usr/local/etc/haproxy/conf.d
+      ports:
+       - "8097:80"
+      networks:
+       tomcatnetwork:
+         ipv4_address: 172.28.5.8
+#      command: "haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg"
+#      entrypoint: bash -c "haproxy -f /usr/local/etc/haproxy/haproxy.cfg"
+#      stdin_open: true
+#      tty: true
+#      entrypoint: "/bin/bash"
+#      command: "-c /bin/bash"
+
 networks:
  tomcatnetwork:
 #  driver: overlay
