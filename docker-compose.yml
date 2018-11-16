@@ -17,9 +17,9 @@ services:
       volumes:
         - ./tomcat/conf:/usr/local/tomcat/conf
         - ./apptest/apptest.war:/usr/local/tomcat/webapps/apptest.war
-      networks:
-        tomcatnetwork:
-             ipv4_address: 172.28.5.1
+#      networks:
+#        tomcatnetwork:
+#             ipv4_address: 172.28.5.1
       hostname: tomcat1
 
     tomcat2:
@@ -37,9 +37,9 @@ services:
       volumes:
         - ./tomcat/conf:/usr/local/tomcat/conf
         - ./apptest/apptest.war:/usr/local/tomcat/webapps/apptest.war
-      networks:
-        tomcatnetwork:
-             ipv4_address: 172.28.5.2
+#      networks:
+#        tomcatnetwork:
+#             ipv4_address: 172.28.5.2
       hostname: tomcat2
 
     tomcat3:
@@ -57,9 +57,9 @@ services:
       volumes:
         - ./tomcat/conf:/usr/local/tomcat/conf
         - ./apptest/apptest.war:/usr/local/tomcat/webapps/apptest.war
-      networks:
-        tomcatnetwork:
-             ipv4_address: 172.28.5.3
+#      networks:
+#        tomcatnetwork:
+#             ipv4_address: 172.28.5.3
       hostname: tomcat3
 
 
@@ -78,9 +78,9 @@ services:
       - TOMCAT_REMOTE_PORT=8080
       - TOMCAT_REMOTE_PATH=/apptest
       - TOMCAT_HOSTNAME=balancer1
-     networks:
-      tomcatnetwork:
-         ipv4_address: 172.28.5.4
+#     networks:
+#      tomcatnetwork:
+#         ipv4_address: 172.28.5.4
 
     balancer2:
      image: jasonwyatt/nginx-loadbalancer
@@ -97,9 +97,9 @@ services:
       - TOMCAT_REMOTE_PORT=8080
       - TOMCAT_REMOTE_PATH=/manager
       - TOMCAT_HOSTNAME=balancer2
-     networks:
-      tomcatnetwork:
-         ipv4_address: 172.28.5.5
+#     networks:
+#      tomcatnetwork:
+#         ipv4_address: 172.28.5.5
 
     nginx1:
       image: nginx
@@ -110,9 +110,9 @@ services:
       environment:
        - NGINX_HOST=nginx1
        - NGINX_PORT=80
-      networks:
-       tomcatnetwork:
-         ipv4_address: 172.28.5.6
+#      networks:
+#       tomcatnetwork:
+#         ipv4_address: 172.28.5.6
 
     nginx2:
       image: nginx
@@ -123,9 +123,9 @@ services:
       environment:
        - NGINX_HOST=nginx1
        - NGINX_PORT=80
-      networks:
-       tomcatnetwork:
-         ipv4_address: 172.28.5.7
+#      networks:
+#       tomcatnetwork:
+#         ipv4_address: 172.28.5.7
 
     haproxy1:
       image: haproxy:1.7
@@ -134,9 +134,9 @@ services:
        - ./haproxy1/conf.d:/usr/local/etc/haproxy/conf.d
       ports:
        - "8097:80"
-      networks:
-       tomcatnetwork:
-         ipv4_address: 172.28.5.8
+#      networks:
+#       tomcatnetwork:
+#         ipv4_address: 172.28.5.8
 #      command: "haproxy -c -f /usr/local/etc/haproxy/haproxy.cfg"
 #      entrypoint: bash -c "haproxy -f /usr/local/etc/haproxy/haproxy.cfg"
 #      stdin_open: true
@@ -144,12 +144,13 @@ services:
 #      entrypoint: "/bin/bash"
 #      command: "-c /bin/bash"
 
-networks:
- tomcatnetwork:
-#  driver: overlay
-  driver: bridge
-  ipam:
-   config:
-    - subnet: 172.28.0.0/16
-      gateway: 172.28.5.254
-#    - ip-range: 172.28.5.0/24
+#networks:
+# tomcatnetwork:
+##  driver: overlay
+#  driver: bridge
+#  ipam:
+#   config:
+#    - subnet: 172.28.0.0/16
+#      gateway: 172.28.5.254
+##    - ip-range: 172.28.5.0/24
+
