@@ -5,6 +5,7 @@ services:
     tomcat1:
       image: tomcat:8.0-jre8
       #image: tomcat:8.0
+      # manager user: admin / admin
       ports: 
         - "8081:8080"
 #      deploy:
